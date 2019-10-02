@@ -1,7 +1,6 @@
 package gb.esac.binner;
 
 import gb.esac.tools.MinMax;
-import gb.esac.tools.BasicStats;
 import hep.aida.IAnalysisFactory;
 import hep.aida.IAxis;
 import hep.aida.IHistogram1D;
@@ -10,6 +9,16 @@ import hep.aida.ITree;
 import java.util.Arrays;
 import org.apache.log4j.Logger;
 
+/**
+
+   The final class <code>Binner</code> defines the methods to bin data
+   and make histograms.
+
+   @author <a href="mailto: guilaume.belanger@esa.int">Guillaume Belanger</a>, ESA/ESAC.
+   @created July 2010
+   @version January 2017
+
+**/
 
 public final class Binner {
 
@@ -149,7 +158,25 @@ public final class Binner {
 	return histo;
     }
 
+    public static IHistogram1D makeHisto(double[] data) {
+	double min = MinMax.getMin(data);
+	double max = MinMax.getMax(data);
+	int nBins = data.length;
+	return makeHisto(data, min, max, nBins);
+    }
+    public static IHistogram1D makeHisto(float[] data) {
+	double min = MinMax.getMin(data);
+	double max = MinMax.getMax(data);
+	int nBins = data.length;
+	return makeHisto(data, min, max, nBins);
+    }
+
     public static IHistogram1D makeHisto(double[] data, int nBins) {
+	double min = MinMax.getMin(data);
+	double max = MinMax.getMax(data);
+	return makeHisto(data, min, max, nBins);
+    }
+    public static IHistogram1D makeHisto(float[] data, int nBins) {
 	double min = MinMax.getMin(data);
 	double max = MinMax.getMax(data);
 	return makeHisto(data, min, max, nBins);

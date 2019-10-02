@@ -6,6 +6,18 @@ import cern.jet.random.Poisson;
 import cern.jet.random.engine.MersenneTwister64;
 
 
+/**
+
+   The final class <code>Resampler</code> defines the methods to resample data.
+   In contrast to rebinning (regrouping), resampling implies splitting bins.
+
+   @author <a href="mailto: guilaume.belanger@esa.int">Guillaume Belanger</a>, ESA/ESAC.
+   @created August 2010
+   @version March 2013
+
+**/
+
+
 public final class Resampler {
 
     public static double[] resample(double[] counts, double[] oldBinEdges, double[] newBinEdges) throws BinningException {

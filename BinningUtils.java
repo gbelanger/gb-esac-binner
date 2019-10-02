@@ -1,13 +1,33 @@
 package gb.esac.binner;
 
 import cern.colt.list.DoubleArrayList;
-import java.util.ArrayList;
 import org.apache.log4j.Logger;
 
+/**
+
+   The final class <code>BinningUtils</code> defines utility methods useful in 
+   binning data.
+
+   @author <a href="mailto: guilaume.belanger@esa.int">Guillaume Belanger</a>, ESA/ESAC.
+   @created July 2010
+   @version April 2017
+
+**/
 
 public final class BinningUtils {
 
     private static Logger logger = Logger.getLogger(BinningUtils.class);
+
+    public static double[] getBinEdges(double xmin, double xmax, int nbins) throws BinningException {
+	double binWidth = (xmax-xmin)/nbins;
+	return getBinEdges(xmin, xmax, binWidth);
+    }
+
+    public static double[] getBinEdges(double binWidth, int nbins) throws BinningException {
+	double xmin = 0;
+	double xmax = binWidth*nbins;
+	return getBinEdges(xmin, xmax, binWidth);
+    }
 
     public static double[] getBinEdges(double xmin, double xmax, double binWidth) throws BinningException {
 	logger.info("Constructing bin edges from xmin, xmax, binWidth");
@@ -35,17 +55,6 @@ public final class BinningUtils {
 	return edges.elements();
     }
 
-    public static double[] getBinEdges(double xmin, double xmax, int nbins) throws BinningException {
-	double binWidth = (xmax-xmin)/nbins;
-	return getBinEdges(xmin, xmax, binWidth);
-    }
-
-    public static double[] getBinEdges(double binWidth, int nbins) throws BinningException {
-	double xmin = 0;
-	double xmax = binWidth*nbins;
-	return getBinEdges(xmin, xmax, binWidth);
-    }
-
     public static double[] getBinEdges(double xmin, double[] binWidths) throws BinningException {
 	logger.info("Constructing bin edges from xmin and binWidths[]");
 	DoubleArrayList edges = new DoubleArrayList();
@@ -63,14 +72,13 @@ public final class BinningUtils {
 	edges.set(edges.size()-1, lastEdge);
 	return edges.elements();
     }
-
-    public static double[] getBinEdgesFromLeftAndRightEdges(double[] leftEdges, double[] rightEdges) throws BinningException {
+    
+    public static double[] getBinEdges(double[] leftEdges, double[] rightEdges) throws BinningException {
 	logger.info("Constructing bin edges from leftEdges[] and rightEdges[]");
 	if ( leftEdges.length != rightEdges.length) {
 	    throw new BinningException("Left and right bin edges array lengths not equal");
 	}
-	int nBinEdges = leftEdges.length + rightEdges.length;
-	double[] binEdges = new double[nBinEdges];
+	double[] binEdges = new double[2*leftEdges.length];
 	for ( int i=0 ; i < leftEdges.length; i++ ) {
 	    binEdges[2*i] = leftEdges[i];
 	    binEdges[2*i+1] = rightEdges[i];
@@ -115,8 +123,8 @@ public final class BinningUtils {
 	    binEdges[2*i+1] = binCentres[i] + halfBinWidths[i];
 	    logger.debug(i+"\t"+binEdges[2*i]+"\t"+binEdges[2*i+1]+"\t"+halfBinWidths[i]);
 	    if ( halfBinWidths[i] < 0 ) {
-	    	logger.debug("i="+i+" "+halfBinWidths[i]);
-	     	System.exit(-1);
+	    	logger.error("Bin i = "+i+" has negative half bin width = "+halfBinWidths[i]);
+	     	throw new BinningException("Negative half bin width");
 	    }
 	}
 	return binEdges;

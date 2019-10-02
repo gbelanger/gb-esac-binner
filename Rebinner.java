@@ -1,12 +1,23 @@
 package gb.esac.binner;
 
 import cern.colt.list.DoubleArrayList;
-import gb.esac.tools.Converter;
 import java.util.ArrayList;
 import org.apache.log4j.Logger;
 
+/**
 
-public class Rebinner {
+   The final class <code>Rebinner</code> defines the methods to rebin data.
+   No resampling is performed. Rebinning implies a regrouping of data without
+   splitting any existing bins.
+
+   @author <a href="mailto: guilaume.belanger@esa.int">Guillaume Belanger</a>, ESA/ESAC.
+   @created August 2010
+   @version August 2010
+
+**/
+
+
+public final class Rebinner {
 
     private static Logger logger = Logger.getLogger(Rebinner.class);
 

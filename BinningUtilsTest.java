@@ -1,12 +1,19 @@
 package gb.esac.binner;
 
+/**
+
+   The class <code>BinningUtilsTest</code> defines utility methods useful in 
+   binning data.
+
+   @author <a href="mailto: guilaume.belanger@esa.int">Guillaume Belanger</a>, ESA/ESAC.
+   @created August 2010
+   @version August 2010
+
+**/
 
 public class BinningUtilsTest {
 
-
-
     public static void main(String[] args) throws BinningException {
-	
 
 	double xmin = 0;
 	double xmax = 100;

@@ -3,8 +3,17 @@ package gb.esac.binner;
 import gb.esac.eventlist.EventList;
 import gb.esac.montecarlo.WhiteNoiseGenerator;
 import java.io.IOException;
-import java.util.Arrays;
 import org.apache.log4j.Logger;
+
+/**
+
+   The final class <code>BinnerTest</code> is written to test <code>Binner</code>.
+
+   @author <a href="mailto: guilaume.belanger@esa.int">Guillaume Belanger</a>, ESA/ESAC.
+   @created August 2010
+   @version June 2015
+
+**/
 
 public class BinnerTest { 
 

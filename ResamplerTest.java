@@ -1,6 +1,5 @@
 package gb.esac.binner;
 
-
 import gb.esac.io.AsciiDataFileWriter;
 import gb.esac.timeseries.TimeSeries;
 import gb.esac.timeseries.TimeSeriesFileException;
@@ -11,17 +10,26 @@ import hep.aida.IHistogram1D;
 import java.io.IOException;
 import org.apache.log4j.Logger;
 
+/**
+
+   The class <code>ResamplerTest</code> is for testing <code>Resampler</code>.
+
+   @author <a href="mailto: guilaume.belanger@esa.int">Guillaume Belanger</a>, ESA/ESAC.
+   @created August 2010
+   @version March 2013
+
+**/
 
 public class ResamplerTest {
 
-    private static Logger logger = Logger.getLogger(Resampler.class);
+    private static Logger logger = Logger.getLogger(ResamplerTest.class);
 
-    public static void main(String[] args) throws BinningException, IOException, TimeSeriesFileException  {
+    public static void main(String[] args) throws Exception  {
 
 	resampleRates();
     }
 
-    public static void resampleRates() throws BinningException, IOException, TimeSeriesFileException {
+    public static void resampleRates() throws Exception {
 
 	// public static double[][] resampleRates(double[] rates, double[] errors, double[] oldBinEdges, double[] newBinEdges) {	
 
@@ -65,7 +73,7 @@ public class ResamplerTest {
 	    //double[] newBinEdges = BinningUtils.getLinearBinEdges(tStart, tStop, nNewBins);
 	    //double[][] ratesAndErrors = Resampler.resampleRates(rates, errors, oldBinEdges, newBinEdges);
 	    double newBinWidth = (tStop-tStart)/nNewBins;
-	    double[][] ratesAndErrors = Resampler.resampleRates(rates, errors, oldBinEdges, newBinWidth);
+	    double[][] ratesAndErrors = Resampler.resample(rates, errors, oldBinEdges, newBinWidth);
 	    double[] r = ratesAndErrors[0];
 	    double[] e = ratesAndErrors[1];
 	    double[] newBinEdges = ratesAndErrors[2];
@@ -127,7 +135,7 @@ public class ResamplerTest {
 
 
 
-	TimeSeries ts = TimeSeriesMaker.makeTimeSeries("/Users/gbelanger/javaProgs/flare.fits");
+	TimeSeries ts = (TimeSeries) TimeSeriesMaker.makeTimeSeries("/Users/gbelanger/javaProgs/flare.fits");
 	double[] counts = ts.getBinHeights();
 	double[] oldBinEdges = ts.getBinEdges();
 	double binWidth = 120.0;
@@ -136,7 +144,7 @@ public class ResamplerTest {
 	TimeSeries ts2 = TimeSeriesResampler.resample(ts, binWidth);
 	ts2.writeCountsAsQDP("ts2.qdp");
 
-	double[] resampledCounts = Resampler.resampleCounts(counts, oldBinEdges, newBinEdges);
+	double[] resampledCounts = Resampler.resample(counts, oldBinEdges, newBinEdges);
 	TimeSeries ts3 = TimeSeriesMaker.makeTimeSeries(newBinEdges, resampledCounts);
 	ts2.writeCountsAsQDP("ts3.qdp");
 	
