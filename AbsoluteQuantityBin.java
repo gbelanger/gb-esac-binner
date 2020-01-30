@@ -21,52 +21,52 @@ public class AbsoluteQuantityBin extends AbstractIntensityBin {
     // Constructors
 
     private AbsoluteQuantityBin() {
-	super();
+    	super();
     }
 
     //  with another AbsoluteQuantityBin    
     public AbsoluteQuantityBin(AbsoluteQuantityBin absoluteQuantityBin) throws BinningException {
-	super(absoluteQuantityBin);
+    	super(absoluteQuantityBin);
     }
 
     //  with IIntensity and IBin
     public AbsoluteQuantityBin(IIntensity iIntensity, IBin iBin) throws BinningException {
-	super(iIntensity, iBin);
+    	super(iIntensity, iBin);
     }
 
     //  with value
     public AbsoluteQuantityBin(double leftEdge, double rightEdge, double absoluteQuantity) throws BinningException {
-	super(leftEdge, rightEdge, absoluteQuantity);
+    	super(leftEdge, rightEdge, absoluteQuantity);
     }
     public AbsoluteQuantityBin(double leftEdge, double rightEdge, double absoluteQuantity, String units) throws BinningException {
-	super(leftEdge, rightEdge, absoluteQuantity, units);
+    	super(leftEdge, rightEdge, absoluteQuantity, units);
     }
     public AbsoluteQuantityBin(double leftEdge, double rightEdge, double absoluteQuantity, String units, String description) throws BinningException {
-	super(leftEdge, rightEdge, absoluteQuantity, units, description);
+    	super(leftEdge, rightEdge, absoluteQuantity, units, description);
     }
 
 
     //  Methods for splitting absoluteQuantity bins
     public AbsoluteQuantityBin[] split(double whereToSplit, AbsoluteQuantityBin previousBin, AbsoluteQuantityBin nextBin) throws BinningException {
-	return IntensityBinSplitter.split(whereToSplit, this, previousBin, nextBin);
+    	return IntensityBinSplitter.split(whereToSplit, this, previousBin, nextBin);
     }
     
     public AbsoluteQuantityBin[] split(double whereToSplit, AbsoluteQuantityBin previousBin, AbsoluteQuantityBin nextBin, boolean addNoise) throws BinningException {
-	return IntensityBinSplitter.split(whereToSplit, this, previousBin, nextBin, addNoise);
+    	return IntensityBinSplitter.split(whereToSplit, this, previousBin, nextBin, addNoise);
     }
 
     public AbsoluteQuantityBin[] splitFirstBin(double whereToSplit, AbsoluteQuantityBin nextBin) throws BinningException {
-	return IntensityBinSplitter.splitFirstBin(whereToSplit, this, nextBin);
+    	return IntensityBinSplitter.splitFirstBin(whereToSplit, this, nextBin);
     }
 
     public AbsoluteQuantityBin[] splitLastBin(double whereToSplit, AbsoluteQuantityBin previousBin) throws BinningException {
-	return IntensityBinSplitter.splitLastBin(whereToSplit, this, previousBin);
+    	return IntensityBinSplitter.splitLastBin(whereToSplit, this, previousBin);
     }
 
 
     //  Method for joining density bins
     public AbsoluteQuantityBin joinWith(AbsoluteQuantityBin absoluteQuantityBin) throws BinningException {
-	return IntensityBinCombiner.join(this, absoluteQuantityBin);
+    	return IntensityBinCombiner.join(this, absoluteQuantityBin);
     }
 
     
