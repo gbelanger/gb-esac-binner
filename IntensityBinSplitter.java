@@ -93,7 +93,7 @@ final class IntensityBinSplitter {
 		    throw new BinningException("Cannot split: Bin ["+thisBin.getLeftEdge()+", "+thisBin.getRightEdge()+"] does not contain "+whereToSplit+".");
 		}
 		else {
-		    logger.info("Splitting bin ["+thisBin.getLeftEdge()+", "+thisBin.getRightEdge()+"] at "+whereToSplit+"...");
+		    logger.info("Splitting bin ["+thisBin.getLeftEdge()+", "+thisBin.getRightEdge()+"] at "+whereToSplit);
 		}
 		//  Distribute intensity according to the trend in the data
 		double deltaMinus = whereToSplit - thisBin.getLeftEdge();
@@ -127,7 +127,7 @@ final class IntensityBinSplitter {
 		//  Contruct and return the two new bins
 		DensityBin leftBin = new DensityBin(thisBin.getLeftEdge(), whereToSplit, intensityMinus, errorMinus);
 		DensityBin rightBin = new DensityBin(whereToSplit, thisBin.getRightEdge(), intensityPlus, errorPlus);
-		logger.info("Splitting complete");
+		//logger.info("Splitting complete");
 		return new DensityBin[] {leftBin, rightBin};
     }
 
@@ -145,7 +145,7 @@ final class IntensityBinSplitter {
 		    throw new BinningException("Cannot split: Bin ["+thisBin.getLeftEdge()+", "+thisBin.getRightEdge()+"] does not contain "+whereToSplit+".");
 		}
 		else {
-		    logger.info("Splitting bin ["+thisBin.getLeftEdge()+", "+thisBin.getRightEdge()+"] at "+whereToSplit+"...");
+		    logger.info("Splitting bin ["+thisBin.getLeftEdge()+", "+thisBin.getRightEdge()+"] at "+whereToSplit);
 		}
 		//  Distribute intensity according to the trend in the data
 		double deltaMinus = whereToSplit - thisBin.getLeftEdge();
@@ -170,7 +170,7 @@ final class IntensityBinSplitter {
 		//  Contruct and return the two new bins
 		AbsoluteQuantityBin leftBin = new AbsoluteQuantityBin(thisBin.getLeftEdge(), whereToSplit, intensityMinus);
 		AbsoluteQuantityBin rightBin = new AbsoluteQuantityBin(whereToSplit, thisBin.getRightEdge(), intensityPlus);
-		logger.info("Splitting complete");
+		//logger.info("Splitting complete");
 		return new AbsoluteQuantityBin[] {leftBin, rightBin};
     }
 
