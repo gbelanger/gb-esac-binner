@@ -122,6 +122,10 @@ public abstract class AbstractBin implements IBin {
     	return (containsLeftEdge || containsRightEdge);
     }
 
+    public boolean overlapsExactly(IBin bin) {
+        return (this.leftEdge == bin.getLeftEdge() && this.rightEdge == bin.getRightEdge());
+    }
+
     public boolean isWiderThan(IBin bin) {
         return (this.width > bin.getWidth());
     }
@@ -130,9 +134,6 @@ public abstract class AbstractBin implements IBin {
         return (this.width == bin.getWidth());
     }
 
-    public boolean isAlignedWith(IBin bin) {
-        return (this.leftEdge == bin.getLeftEdge() && this.rightEdge == bin.getRightEdge());
-    }
 
     //public abstract AbstractBin[] split(double whereToSplit) throws BinningException;
     //public abstract AbstractBin joinWith(AbstractBin bin) throws BinningException;
