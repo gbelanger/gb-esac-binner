@@ -35,6 +35,10 @@ public interface IBin {
     public boolean contains(double value);
     public boolean contains(IBin bin);
     public boolean overlaps(IBin bin);
+    public boolean isWiderThan(IBin bin);
+    public boolean isOfEqualWidth(IBin bin);
+    public boolean isAlignedWith(IBin bin);
+    
     //public IBin[] split(double whereToSplit) throws BinningException;
     //public IBin joinWith(IBin bin) throws BinningException;
 

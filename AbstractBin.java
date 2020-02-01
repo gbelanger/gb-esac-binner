@@ -41,85 +41,97 @@ public abstract class AbstractBin implements IBin {
     AbstractBin() {}
 
     AbstractBin(IBin bin) throws BinningException {
-	setEdges(bin.getLeftEdge(), bin.getRightEdge());
-	printInfo();
+    	setEdges(bin.getLeftEdge(), bin.getRightEdge());
+    	printInfo();
     }
 
     AbstractBin(double leftEdge, double rightEdge) throws BinningException {
-	setEdges(leftEdge, rightEdge);
-	printInfo();
+    	setEdges(leftEdge, rightEdge);
+    	printInfo();
     }
 
     //  Print info
     private void printInfo() {
-	logger.info("New Bin is ready: ["+this.getLeftEdge()+", "+this.getRightEdge()+"]");
-	logger.info("  Centre = "+this.getCentre());
-	logger.info("  Width = "+this.getWidth());
+    	logger.info("New Bin is ready: ["+this.getLeftEdge()+", "+this.getRightEdge()+"]");
+    	logger.info("  Centre = "+this.getCentre());
+    	logger.info("  Width = "+this.getWidth());
     }
 
 
     //  package-private setters
     void setEdges(double leftEdge, double rightEdge) throws BinningException {
-	this.leftEdge = leftEdge;
-	this.rightEdge = rightEdge;
-	this.edges = new double[] {leftEdge, rightEdge};
-	setCentre((leftEdge+rightEdge)/2d);
-	setWidth(rightEdge - leftEdge);
+    	this.leftEdge = leftEdge;
+    	this.rightEdge = rightEdge;
+    	this.edges = new double[] {leftEdge, rightEdge};
+    	setCentre((leftEdge+rightEdge)/2d);
+    	setWidth(rightEdge - leftEdge);
     }
 
     void setEdges(double[] edges) throws BinningException {
-	setEdges(edges[0], edges[1]);
+    	setEdges(edges[0], edges[1]);
     }
 
     void setCentre(double centre) {
-	this.centre = centre;
+    	this.centre = centre;
     }
 
     void setWidth(double width) throws BinningException {
-	if (width <= Math.ulp(0.0)) {
-	    throw new BinningException("Cannot construct zero (or negative) size bin");
-	}
-	this.width = width;
+    	if (width <= Math.ulp(0.0)) {
+    	    throw new BinningException("Cannot construct zero (or negative) size bin");
+    	}
+    	this.width = width;
     }
 
 
     //  Public methods from IBin that must be implemented
     public double getLeftEdge() {
-	return this.leftEdge;
+    	return this.leftEdge;
     }
 
     public double getRightEdge() {
-	return this.rightEdge;
+    	return this.rightEdge;
     }
 
     public double[] getEdges() {
-	return this.edges;
+    	return this.edges;
     }
 
     public double getWidth() {
-	return this.width;
+    	return this.width;
     }
 
     public double getCentre() {
-	return this.centre;
+    	return this.centre;
     }
 
     public boolean contains(double value) {
-	boolean boundedFromLeft = value > (this.leftEdge - Math.ulp(this.leftEdge));
-	boolean boundedFromRight = value < (this.rightEdge + Math.ulp(this.rightEdge));
-	return (boundedFromLeft && boundedFromRight);
+    	boolean boundedFromLeft = value > (this.leftEdge - Math.ulp(this.leftEdge));
+    	boolean boundedFromRight = value < (this.rightEdge + Math.ulp(this.rightEdge));
+    	return (boundedFromLeft && boundedFromRight);
     }
 
     public boolean contains(IBin bin) {
-	boolean containsLeftEdge = contains(bin.getLeftEdge());
-	boolean containsRightEdge = contains(bin.getRightEdge());
-	return (containsLeftEdge && containsRightEdge);
+    	boolean containsLeftEdge = contains(bin.getLeftEdge());
+    	boolean containsRightEdge = contains(bin.getRightEdge());
+    	return (containsLeftEdge && containsRightEdge);
     }
 
     public boolean overlaps(IBin bin) {
-	boolean containsLeftEdge = contains(bin.getLeftEdge());
-	boolean containsRightEdge = contains(bin.getRightEdge());
-	return (containsLeftEdge || containsRightEdge);
+    	boolean containsLeftEdge = contains(bin.getLeftEdge());
+    	boolean containsRightEdge = contains(bin.getRightEdge());
+    	return (containsLeftEdge || containsRightEdge);
+    }
+
+    public boolean isWiderThan(IBin bin) {
+        return (this.width > bin.getWidth());
+    }
+
+    public boolean isOfEqualWidth(IBin bin){
+        return (this.width == bin.getWidth());
+    }
+
+    public boolean isAlignedWith(IBin bin) {
+        return (this.leftEdge == bin.getLeftEdge() && this.rightEdge == bin.getRightEdge());
     }
 
     //public abstract AbstractBin[] split(double whereToSplit) throws BinningException;
