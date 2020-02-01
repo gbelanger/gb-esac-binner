@@ -42,12 +42,12 @@ public abstract class AbstractBin implements IBin {
 
     AbstractBin(IBin bin) throws BinningException {
     	setEdges(bin.getLeftEdge(), bin.getRightEdge());
-    	printInfo();
+    	//printInfo();
     }
 
     AbstractBin(double leftEdge, double rightEdge) throws BinningException {
     	setEdges(leftEdge, rightEdge);
-    	printInfo();
+    	//printInfo();
     }
 
     //  Print info

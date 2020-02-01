@@ -22,7 +22,8 @@ the error on it if there one. It's not very elegant, but it's the only way to do
 
  @author <a href="mailto: guilaume.belanger@esa.int">Guillaume Belanger</a>, ESA/ESAC.
  @created March 2013
- @version August 2018
+ @modified August 2018
+ @version February 2020
 
  **/
 
@@ -65,105 +66,107 @@ public abstract class AbstractIntensityBin extends AbstractBin implements IBin, 
     protected AbstractIntensityBin() {}
 
     protected AbstractIntensityBin(AbstractIntensityBin intensityBin) throws BinningException {
-	setEdges(intensityBin.getEdges());
-	setValue(intensityBin.getValue());
-	if (intensityBin.errorIsSet()) {
-	    setError(intensityBin.getError());
-	}
-	printInfo();
+    	setEdges(intensityBin.getEdges());
+    	setValue(intensityBin.getValue());
+    	if (intensityBin.errorIsSet()) {
+    	    setError(intensityBin.getError());
+    	}
+    	//printInfo();
     }
 
     protected AbstractIntensityBin(IIntensity intensity, IBin bin) throws BinningException {
-	setEdges(bin.getEdges());
-	setValue(intensity.getValue());
-	if (intensity.errorIsSet()) {
-	    setError(intensity.getError());
-	}
-	printInfo();	
+    	setEdges(bin.getEdges());
+    	setValue(intensity.getValue());
+    	if (intensity.errorIsSet()) {
+    	    setError(intensity.getError());
+    	}
+    	//printInfo();
     }
 
     //  With value
     protected AbstractIntensityBin(double leftEdge, double rightEdge, double value) throws BinningException {
-	setEdges(leftEdge, rightEdge);
-	setValue(value);
-	printInfo();
+    	setEdges(leftEdge, rightEdge);
+    	setValue(value);
+    	//printInfo();
     }
     protected AbstractIntensityBin(double leftEdge, double rightEdge, double value, String units) throws BinningException {
-	setEdges(leftEdge, rightEdge);
-	setValue(value);
-	setUnits(units);
-	printInfo();
+    	setEdges(leftEdge, rightEdge);
+    	setValue(value);
+    	setUnits(units);
+    	//printInfo();
     }
     protected AbstractIntensityBin(double leftEdge, double rightEdge, double value, String units, String description) throws BinningException {
-	setEdges(leftEdge, rightEdge);
-	setValue(value);
-	setUnits(units);
-	setDescription(description);
-	printInfo();
+    	setEdges(leftEdge, rightEdge);
+    	setValue(value);
+    	setUnits(units);
+    	setDescription(description);
+    	//printInfo();
     }
     
     //  With value and error
     protected AbstractIntensityBin(double leftEdge, double rightEdge, double value, double error) throws BinningException {
-	setEdges(leftEdge, rightEdge);
-	setValue(value, error);
-	printInfo();
+    	setEdges(leftEdge, rightEdge);
+    	setValue(value, error);
+    	//printInfo();
     }
     protected AbstractIntensityBin(double leftEdge, double rightEdge, double value, double error, String units) throws BinningException {
-	setEdges(leftEdge, rightEdge);
-	setValue(value, error);
-	setUnits(units);
-	printInfo();
+    	setEdges(leftEdge, rightEdge);
+    	setValue(value, error);
+    	setUnits(units);
+    	//printInfo();
     }
     protected AbstractIntensityBin(double leftEdge, double rightEdge, double value, double error, String units, String description) throws BinningException {
-	setEdges(leftEdge, rightEdge);
-	setValue(value, error);
-	setUnits(units);
-	setDescription(description);
-	printInfo();
+    	setEdges(leftEdge, rightEdge);
+    	setValue(value, error);
+    	setUnits(units);
+    	setDescription(description);
+    	//printInfo();
     }
 
     //  Print info
     private void printInfo() {
-	logger.info("New IntensityBin is ready: ["+this.getLeftEdge()+", "+this.getRightEdge()+"]");
-	logger.info("  Centre = "+this.getCentre());
-	logger.info("  Width = "+this.getWidth());
-	logger.info("  Intensity = "+this.getValue());
-	logger.info("  Error = "+this.getError());
+    	logger.info("New IntensityBin is ready: ["+this.getLeftEdge()+", "+this.getRightEdge()+"]");
+    	logger.info("  Centre = "+this.getCentre());
+    	logger.info("  Width = "+this.getWidth());
+    	logger.info("  Intensity = "+this.getValue());
+        if (this.errorIsSet()) {
+        	logger.info("  Error = "+this.getError());
+        }
     }
     
 
     //  Methods duplicated from AbstractIntensity
     
     private void setValue(double value) {
-	this.value = value;
+    	this.value = value;
     }
 
     private void setError(double error) {
-	this.error = error;
-	if ( !Double.isNaN(error) ) {
-	    this.errorIsSet = true;
-	    this.variance = Math.pow(error,2);
-	}
+    	this.error = error;
+    	if ( !Double.isNaN(error) ) {
+    	    this.errorIsSet = true;
+    	    this.variance = Math.pow(error,2);
+    	}
     }
 
     private void setValue(double value, double error) {
-	setValue(value);
-	setError(error);
+    	setValue(value);
+    	setError(error);
     }
 
     //  Public setters
     public void setUnits(String units) {
-	if (units != null) {
-	    this.units = new String(units);
-	    this.unitsAreSet = true;
-	}
+    	if (units != null) {
+    	    this.units = new String(units);
+    	    this.unitsAreSet = true;
+    	}
     }
 
     public void setDescription(String description) {
-	if (description != null) {
-	    this.description = new String(description);
-	    this.descriptionIsSet = true;
-	}
+    	if (description != null) {
+    	    this.description = new String(description);
+    	    this.descriptionIsSet = true;
+    	}
     }
     
     //  Public getters    
@@ -173,55 +176,55 @@ public abstract class AbstractIntensityBin extends AbstractBin implements IBin, 
     // }
 
     public double getValue() {
-	return this.value;
+    	return this.value;
     }
 
     public double getError() {
-	if ( !this.errorIsSet() ) {
-	    logger.warn("Error is undefined: Returning Double.NaN");
-	}
-	return this.error;
+    	if ( !this.errorIsSet() ) {
+    	    logger.warn("Error is undefined: Returning Double.NaN");
+    	}
+    	return this.error;
     }
 
     public double getVariance() {
-	if ( !this.errorIsSet() ) {
-	    logger.warn("Variance is undefined: Returning Double.NaN");
-	}
-	return this.variance;
+    	if ( !this.errorIsSet() ) {
+    	    logger.warn("Variance is undefined: Returning Double.NaN");
+    	}
+    	return this.variance;
     }
 
     public boolean errorIsSet() {
-	return this.errorIsSet;
+    	return this.errorIsSet;
     }
     ////  Units and description
     public String getUnits() {
-	String units = null;
-	if (this.unitsAreSet) {
-	    units = new String(this.units);
-	}
-	else {
-	    logger.warn("Units are undefined: Returning null String");
-	}
-	return units;
+    	String units = null;
+    	if (this.unitsAreSet) {
+    	    units = new String(this.units);
+    	}
+    	else {
+    	    logger.warn("Units are undefined: Returning null String");
+    	}
+    	return units;
     }
 
     public String getDescription() {
-	String desc = null;
-	if (this.descriptionIsSet) {
-	    desc = new String(this.description);
-	}
-	else {
-	    logger.warn("Description is empty: Returning null String");
-	}
-	return desc;
+    	String desc = null;
+    	if (this.descriptionIsSet) {
+    	    desc = new String(this.description);
+    	}
+    	else {
+    	    logger.warn("Description is empty: Returning null String");
+    	}
+    	return desc;
     }
     
     public boolean unitsAreSet() {
-	return this.unitsAreSet;
+    	return this.unitsAreSet;
     }
 
     public boolean descriptionIsSet() {
-	return this.descriptionIsSet;
+    	return this.descriptionIsSet;
     }
 
     
