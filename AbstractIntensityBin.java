@@ -87,7 +87,7 @@ public abstract class AbstractIntensityBin extends AbstractBin implements IBin, 
     protected AbstractIntensityBin(double leftEdge, double rightEdge, double value) throws BinningException {
     	setEdges(leftEdge, rightEdge);
     	setValue(value);
-    	//printInfo();
+    	printInfo();
     }
     protected AbstractIntensityBin(double leftEdge, double rightEdge, double value, String units) throws BinningException {
     	setEdges(leftEdge, rightEdge);
